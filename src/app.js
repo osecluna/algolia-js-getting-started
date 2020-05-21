@@ -1,16 +1,16 @@
 /* global algoliasearch instantsearch */
 
-const searchClient = algoliasearch(
-  'testingOLPRJ0J6QX',
-  'd0c5363d8a374439c3b33b019ec613d1'
-);
+// update with your Application ID and Search API Key
+const searchClient = algoliasearch('myApplicationID', 'mySearchAPIKey');
 
+// update with your index name
 const search = instantsearch({
-  indexName: 'bloblog-hub-01.blog-production-olly',
+  indexName: 'myIndexName',
   searchClient,
 });
 
-const mediaHost = 'https://i1-qa.adis.ws';
+// change mediaHost to your VSE for use with staging /preview environments
+const mediaHost = 'https://i8.adis.ws';
 
 search.addWidgets([
   instantsearch.widgets.searchBox({
@@ -43,11 +43,16 @@ search.addWidgets([
     container: '#authors-list',
     attribute: 'authors.name',
   }),
+  // Add item(s) for each sort option
   instantsearch.widgets.sortBy({
     container: '#sort-by',
     items: [
-      { label: 'Default (most recent)', value: search.indexName },
-      { label: 'Read time - ascending', value: 'bloblog-hub-01.blog-production-olly_sort-readTime-asc' }
+      { label: 'Sort by - Default', value: search.indexName },
+      // Update with your replica index name
+      {
+        label: 'My sort label',
+        value: 'myReplicaIndexName',
+      },
     ],
   }),
 ]);
